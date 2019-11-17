@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h2>College Scorecard Application</h2>
+<hr />
+
+<div>
+    <p>
+        This application let's you fetch college scorecard data from DATA.GOV Department of Education via their public <a href="https://api.data.gov/docs/ed/">API</a>.
+        The College Scorecard is designed to increase transparency, putting the power in the hands of the public — from those choosing colleges to those improving college quality — to see how well different schools are serving their students.
+        <br />
+        <br />
+        The <a asp-area="" asp-controller="Home" asp-action="CollegesList">Colleges List</a> tab fetches schools data from the
+            <a href="https://collegescorecard.ed.gov/data/documentation/">College Scorecard Data API </a> and displays the results.
+        This data can also be saved in the local database.
+        <br />
+        The <a asp-area="" asp-controller="Home" asp-action="CollegeScorecard">College Scorecard</a> tab let's you select a College and fetches the scorecard details from local database.
+           
+        <br />
+        The <a asp-area="" asp-controller="Home" asp-action="Refresh">Refresh</a> tab let's you refresh the local database, that is, remove all its contents.
+    </p>
+    <p>
+        Following learning objectives are fulfilled -
+        <ul>
+            <li>Connection to REST API.</li>
+            <li>Connection to database.</li>
+            <li>CRUD operations.</li>
+        </ul>
+    </p>
+</div>

@@ -1,0 +1,102 @@
+﻿@model CollegeScorecard.Models.Schools
+
+    @{
+        ViewData["Title"] = "Schools";
+    }
+
+    <h1>List of Colleges</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    School ID
+                </th>
+                <th>
+                    School Name
+                </th>
+                <th>
+                    City
+                </th>
+                <th>
+                    State
+                </th>
+                <th>
+                    Website URL
+                </th>
+                <th>
+                    Highest Degree Awarded
+                </th>
+                <th>
+                    Main Campus
+                </th>
+                <th>
+                    Branches
+                </th>
+                <th>
+                    Online Only
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var item in Model.results)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.schoolname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.schoolcity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.schoolstate)
+                </td>
+                <td>
+                    <a href="@item.schoolschool_url" target="_blank">
+                        @Html.DisplayFor(modelItem => item.schoolschool_url)                        
+                    </a>
+                    
+                </td>
+                <td>
+                    @if (item.schooldegrees_awardedhighest == 4)
+                    {
+                        <text>Graduate degree</text>
+                    }
+                    else if (item.schooldegrees_awardedhighest == 3)
+                    {
+                        <text>Bachelor's degree</text>
+                    }
+                </td>
+                <td>
+                    @if (item.schoolmain_campus == 1)
+                    {
+                        <text>Yes</text>
+                    }
+                    else
+                    {
+                        <text>No</text>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.schoolbranches)
+                </td>
+                <td>
+                    @if (item.schoolonline_only == 1)
+                    {
+                        <text>Online Only</text>
+                    }
+                    else
+                    {
+                        <text>No</text>
+                    }
+                </td>
+            </tr>
+            }
+            
+        </tbody>
+    </table>   
