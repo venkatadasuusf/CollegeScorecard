@@ -24,12 +24,17 @@ namespace CollegeScorecard.Controllers
             return View();
         }
 
-        public IActionResult Schools()
+        public IActionResult CollegesList()
         {
             APIHandler webHandler = new APIHandler();
             Schools schoolsdata = webHandler.GetSchoolsData();
 
             return View(schoolsdata);
+        }
+
+        public IActionResult CollegeScorecard()
+        {
+            return View();
         }
 
         public IActionResult Privacy()

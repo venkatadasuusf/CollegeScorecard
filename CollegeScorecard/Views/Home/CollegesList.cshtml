@@ -1,7 +1,7 @@
 ﻿@model CollegeScorecard.Models.Schools
 
     @{
-        ViewData["Title"] = "Schools";
+        ViewData["Title"] = "Colleges List";
     }
 
     <h1>List of Colleges</h1>
@@ -48,7 +48,7 @@
                     @Html.DisplayFor(modelItem => item.id)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.schoolname)
+                    @Html.ActionLink(item.schoolname, "CollegeScorecard", "Home")                   
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.schoolcity)
@@ -57,10 +57,9 @@
                     @Html.DisplayFor(modelItem => item.schoolstate)
                 </td>
                 <td>
-                    <a href="@item.schoolschool_url" target="_blank">
+                    <a href="http://@item.schoolschool_url" target="_blank">
                         @Html.DisplayFor(modelItem => item.schoolschool_url)                        
-                    </a>
-                    
+                    </a>                    
                 </td>
                 <td>
                     @if (item.schooldegrees_awardedhighest == 4)
@@ -70,6 +69,18 @@
                     else if (item.schooldegrees_awardedhighest == 3)
                     {
                         <text>Bachelor's degree</text>
+                    }
+                    else if (item.schooldegrees_awardedhighest == 2)
+                    {
+                        <text>Associate degree</text>
+                    }
+                    else if (item.schooldegrees_awardedhighest == 1)
+                    {
+                        <text>Certificate degree</text>
+                    }
+                    else
+                    {
+                        <text>Non-degree-granting</text>
                     }
                 </td>
                 <td>
