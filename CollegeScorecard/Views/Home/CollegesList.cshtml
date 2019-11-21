@@ -5,6 +5,7 @@
     }
 
     <h1>List of Colleges</h1>
+    <hr />
 
     <table class="table">
         <thead>
@@ -47,8 +48,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.id)
                 </td>
-                <td>
-                    @Html.ActionLink(item.schoolname, "CollegeScorecard", "Home")                   
+                
+                <td>                    
+                    <a href='@Url.Action("CollegeScorecard","Home")?id=@item.id'>@item.schoolname</a>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.schoolcity)
@@ -58,8 +60,8 @@
                 </td>
                 <td>
                     <a href="http://@item.schoolschool_url" target="_blank">
-                        @Html.DisplayFor(modelItem => item.schoolschool_url)                        
-                    </a>                    
+                        @Html.DisplayFor(modelItem => item.schoolschool_url)
+                    </a>
                 </td>
                 <td>
                     @if (item.schooldegrees_awardedhighest == 4)

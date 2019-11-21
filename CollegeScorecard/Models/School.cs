@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
 namespace CollegeScorecard.Models
@@ -10,7 +11,7 @@ namespace CollegeScorecard.Models
     public class Schools
     {
         public Metadata metadata { get; set; }
-        public School[] results { get; set; }        
+        public School[] results { get; set; }   
 
     }
 
@@ -23,7 +24,9 @@ namespace CollegeScorecard.Models
 
     public class School
     {
+
         [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.None)]
         [JsonProperty("id")]
         public int id { get; set; }
 
@@ -61,12 +64,14 @@ namespace CollegeScorecard.Models
         public int schooldegrees_awardedhighest { get; set; }
 
         [JsonProperty("school.online_only")]
-        public int schoolonline_only { get; set; }
-                
-        public DateTime CreatedOn { get; set; } = DateTime.Now; 
+        public int schoolonline_only { get; set; }  
         
-
+        public DateTime CreatedOn { get; set; } = DateTime.Now;
+        //public StudentBody studentbody;
+        //public CostAidEarnings costaidearnings;
 
     }
+
+    
 
 }

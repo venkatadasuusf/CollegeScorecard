@@ -1,0 +1,56 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
+
+namespace CollegeScorecard.Models
+{
+    public class StudentBodyData
+    {
+        public Metadata metadata { get; set; }
+        public StudentBody[] results { get; set; }
+
+    }
+  
+    public class StudentBody
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Column(Order = 1, TypeName = "integer")]
+        public int studentbodyid { get; set; }
+
+        [JsonProperty("latest.completion.completion_rate_4yr_150nt")]
+        public float latestcompletioncompletion_rate_4yr_150nt { get; set; }
+
+        [JsonProperty("latest.student.demographics.female_share")]
+        public float lateststudentdemographicsfemale_share { get; set; }
+
+        [JsonProperty("latest.student.retention_rate.four_year.full_time")]
+        public float lateststudentretention_ratefour_yearfull_time { get; set; }
+        
+        [JsonProperty("latest.student.size")]
+        public int lateststudentsize { get; set; }
+
+        [JsonProperty("latest.student.grad_students")]
+        public int lateststudentgrad_students { get; set; }
+
+        [JsonProperty("latest.admissions.admission_rate.overall")]
+        public float latestadmissionsadmission_rateoverall { get; set; }
+
+        [JsonProperty("latest.student.part_time_share")]
+        public float lateststudentpart_time_share { get; set; }
+        
+        public string datayear { get; set; } = "Latest";
+
+        public DateTime CreatedOn { get; set; } = DateTime.Now;
+
+        [ForeignKey("School")]
+        public int id { get; set; }
+        public virtual School School { get; set; }
+
+    }
+
+}

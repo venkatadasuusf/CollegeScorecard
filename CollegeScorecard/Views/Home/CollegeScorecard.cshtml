@@ -1,5 +1,39 @@
-﻿@{
+﻿@model CollegeScorecard.Models.CollegeScorecardViewModel
+
+@{
     ViewData["Title"] = "College Scorecard";
 }
 
 <h1>College Scorecard</h1>
+<hr />
+
+<form asp-controller="Home" asp-action="CollegeScorecard" method="get">
+
+    <select name="id" onchange="this.form.submit()">
+
+        <option value="">Select College</option>
+
+        @foreach (var school in Model.SchoolsList)
+        {
+            <option value=@school.id>@school.schoolname</option>
+        }
+        
+    </select>
+</form>
+
+@if (Model.StudentBody != null && Model.CostAidEarnings != null)
+{
+    <div>
+        <h2>
+            Undergraduate Students:
+            @Html.DisplayFor(modelItem => Model.StudentBody.lateststudentsize)
+        </h2>
+        <div>
+            <h5>
+                Net price:
+                @Html.DisplayFor(modelItem => Model.CostAidEarnings.latestcostavg_net_pricepublic)
+            </h5>
+        </div>
+
+    </div>
+}

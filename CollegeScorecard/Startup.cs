@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using CollegeScorecard.DatabaseAccess;
 using Microsoft.EntityFrameworkCore;
+using CollegeScorecard.Models;
 
 namespace CollegeScorecard
 {
@@ -33,6 +34,13 @@ namespace CollegeScorecard
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //This makes sure that the database and tables are created as per the Models.
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<CollegeScorecardDbContext>();
+                context.Database.EnsureCreated();
+            }
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

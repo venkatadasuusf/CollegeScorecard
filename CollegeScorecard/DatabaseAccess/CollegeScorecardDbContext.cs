@@ -16,7 +16,7 @@ namespace CollegeScorecard.DatabaseAccess
         }
 
         public DbSet<School> Schools { get; set; }
-        public DbSet<Student> Students { get; set; }
+        public DbSet<StudentBody> StudentBody { get; set; }
         public DbSet<CostAidEarnings> CostAidEarnings { get; set; }
 
     }    
