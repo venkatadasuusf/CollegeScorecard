@@ -24,6 +24,6 @@ table {
     border-collapse: separate;
 }
 
-th {
-    text-align: left;
+b {
+    font-weight: bold;
 }

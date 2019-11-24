@@ -1,0 +1,118 @@
+﻿@{
+    ViewData["Title"] = "About Us";
+}
+
+<h1>About Us</h1>
+<hr />
+<table style="width:100%">
+    <tr>
+        <td colspan="3">
+            Thank you for visiting the College Scorecard Application. Let's meet the Team who created the College Scorecard application...
+        </td>
+    </tr>
+    <tr>
+        <td><img src="~/images/venkat.jpg" alt="venkat" style="width:325px;height:275px;"></td>        
+        <td><img src="~/images/syam.jpeg" alt="syam" style="width:325px;height:275px;"></td>
+        <td><img src="~/images/yunus.jpg" alt="yunus" style="width:325px;height:275px;"></td>
+    </tr>
+    <tr>
+        <td align="justify">
+            <b>Venkata Dasu</b>
+            <br /><br />
+            Venkata has a Masters in Computer Applications. He is currently working as a Solutions Engineer in a financial services company. In this assignment, Venkata has worked on API connectivity, Models creation and database design. Venkata has worked on the About Us page as well.
+            <br /><br />
+            vdasu@mail.usf.edu
+        </td>
+        <td align="justify">
+            <b>Syam Godavarthi</b>
+            <br /><br />
+            Syam is in his final Semester of Masters in BAIS. He is currently working as a Graduate Intern in a Coca-cola. In this assignment, Syam has worked on the CollegeScore page to display the colleges list dropdown and specific details of a selected college. Syam has worked on the Home page as well.
+            <br /><br />
+            syamg@mail.usf.edu
+        </td>
+        <td align="justify">
+            <b>Yunus Rouhan</b>
+            <br /><br />
+            Yunus is in his Final semester of Masters in BAIS. He is currently work as a Fraud Analyst Intern in Bloomin Brands. In this assignment, Yunus has worked on the CollegesList page which displays the list of colleges retrieved from the API.
+            <br /><br />
+            msalauddin@mail.usf.edu
+        </td>
+    </tr>    
+</table>
+<hr />
+
+<table>
+    <tr>
+        <td colspan="2">
+            GitHub Repository, Data Dictionary and College Scorecard API details...
+        </td>
+    </tr>
+    <tr>
+        <td>
+            College Scorecard GitHub Repository:
+        </td>
+        <td>
+            <a href="https://github.com/venkatadasuusf/CollegeScorecard" target="_blank">https://github.com/venkatadasuusf/CollegeScorecard</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            DATA.GOV Department of Education:
+        </td>
+        <td>
+            <a href="https://api.data.gov/docs/ed/" target="_blank">https://api.data.gov/docs/ed/</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            College Scorecard API Documentation:
+        </td>
+        <td>
+            <a href="https://collegescorecard.ed.gov/data/documentation/" target="_blank">https://collegescorecard.ed.gov/data/documentation/</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Download API Data Dictionary here:
+        </td>
+        <td>
+            <a href="https://collegescorecard.ed.gov/assets/CollegeScorecardDataDictionary.xlsx" target="_blank">https://collegescorecard.ed.gov/assets/CollegeScorecardDataDictionary.xlsx</a>
+        </td>
+    </tr>
+</table>
+<hr />
+
+<table>
+    <tr>
+        <td>
+            Logical Data Model, Design and Implementation details...
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <u>College Scorecard Logical Data Model</u>
+        </td>
+    </tr>
+    <tr>       
+        <td>
+            <img src="~/images/logicalmodel.jpg" alt="logicalmodel" style="width:900px;height:600px;">
+        </td>
+    </tr>
+    <tr>
+        <td align="justify">
+            <u>College Scorecard Design and Implementation considerations</u>
+            <ul>
+                <li>The Colleges List pages retrieves the list of Public colleges from Florida and Georgia from Data.gov API.</li>
+                <li>On Colleges List page load, data is saved into database (only if they are not already present in the database).</li>
+                <li>Taking page load performance into consideration, current API call would retrieve the data only from states FL and GA.</li>
+                <li>Once a college name link is clicked on Colleges List page, another API call is made to retreive the scorecard details of the selected college.</li>
+                <li>For the college scorecard specific details, a call to local database is made prior to API call. API call will be made only if the data is not present in local DB or if the data is older than 30 days.</li>
+                <li>Data in StudentBody and CostAidEarnings tables will be refreshed every 30 days (on demand).</li>
+                <li>Colleges List dropdown contents on College Scorecard page are from local DB.</li>
+                <li>Current database design can accomodate historical data as well. However, only latest data is displayed on the pages.</li>
+                <li>Future enhacements like Colleges Compare or College Search page (search by State, Zip etc.) is possible with the existig design.</li>                
+            </ul>
+        </td>        
+    </tr>        
+</table>
+

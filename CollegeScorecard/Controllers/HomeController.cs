@@ -27,26 +27,13 @@ namespace CollegeScorecard.Controllers
             return View();
         }
 
+        public IActionResult AboutUs()
+        {
+            return View();
+        }
+
         public IActionResult CollegesList()
         {
-            /* Moved to new function GetSchoolsData
-            APIHandler webHandler = new APIHandler();
-            Schools schoolsdata = webHandler.GetSchoolsDataAPI();
-            
-            foreach (School school in schoolsdata.results)
-            {
-                //Database will give PK constraint violation error when trying to insert record with existing PK.
-                //So add School only if it doesnt exist, check existence using symbol (PK)
-                //if ( (dbContext.Schools.Where(c => c.id.Equals(school.id)).Count() == 0) || (DateTime.Now.Date - Convert.ToDateTime(dbContext.Schools.Where(c => c.id.Equals(school.id))?.Select(c => c.CreatedOn.Date))).Days > 30 )
-                if (dbContext.Schools.Where(c => c.id.Equals(school.id)).Count() == 0)
-                {
-                    dbContext.Schools.Add(school);            
-                    
-                }
-            }
-            
-            dbContext.SaveChanges();
-            */
             Schools schoolsdata = GetSchoolsDatafromAPI();
             return View(schoolsdata);
         }
@@ -59,7 +46,6 @@ namespace CollegeScorecard.Controllers
             if (id == null)
             {
                 ViewBag.collegeselected = 0;
-                //CollegeScorecardViewModel collegescorecarddata = new CollegeScorecardViewModel();
                 List<School> schoolslist = dbContext.Schools.ToList();
 
                 //check if the count is 0 (no data available in database), then call the API
@@ -88,93 +74,7 @@ namespace CollegeScorecard.Controllers
                 ViewBag.collegeselected = id;
 
                 collegescorecarddata = GetStudentBodyandCostData(id);
-
-                /*
-                StudentBodyData studentbodydata = new StudentBodyData();
-                StudentBody studentbodyfromDB = new StudentBody();
-                CostAidEarningsData costaidearningsdata = new CostAidEarningsData();
-                CostAidEarnings costaidearningsfromDB = new CostAidEarnings();
-                //CollegeScorecardViewModel collegescorecarddata = new CollegeScorecardViewModel();
-
-                //Retrieving the list of colleges from Database
-                List<School> schoolslist = dbContext.Schools.ToList();
-                //Retrieving the studentbody data from Database for the selected college
-                studentbodyfromDB = dbContext.StudentBody.Where(s => s.id == id).FirstOrDefault();
-                //Retrieving the studentbody data from Database for the selected college
-                costaidearningsfromDB = dbContext.CostAidEarnings.Where(s => s.id == id).FirstOrDefault();                       
-                  
-                //check if the count is 0 (no data available in database), then call the API                 
-                if (schoolslist.Count != 0)
-                {
-                    Schools schoolsdata = GetSchoolsData();
-
-                    foreach (School school in schoolsdata.results)
-                    {
-                        schoolslist.Add(school);
-                    }
-                    collegescorecarddata.SchoolsList = schoolslist;
-                }
-                else
-                {
-                    collegescorecarddata.SchoolsList = schoolslist;
-                }
-
-                // Checking the last saved data time for studentbody and costairearnings records
-                int studentbodylastSaveddataTime = (DateTime.Now.Date - studentbodyfromDB.CreatedOn.Date).Days;
-                int costaidearningslastSaveddataTime = (DateTime.Now.Date - costaidearningsfromDB.CreatedOn.Date).Days;
-
-                //check if the studentbodyfromDB or costaidearningsfromDB is null (no data available in database), then call the API
-                //move to a different function
-
-                APIHandler webHandler = new APIHandler();
-                string studentbodyandcostdata = webHandler.GetStudentBodyandCostDataAPI(id);
-
-                var settings = new JsonSerializerSettings
-                {
-                    NullValueHandling = NullValueHandling.Ignore,
-                    MissingMemberHandling = MissingMemberHandling.Ignore
-                };
-
-                if (!studentbodyandcostdata.Equals(""))
-                {
-                    // JsonConvert is part of the NewtonSoft.Json Nuget package
-                    studentbodydata = JsonConvert.DeserializeObject<StudentBodyData>(studentbodyandcostdata, settings);
-                    costaidearningsdata = JsonConvert.DeserializeObject<CostAidEarningsData>(studentbodyandcostdata, settings);                  
-
-                }
-
-                foreach (StudentBody studentbody in studentbodydata.results)
-                {
-                    //Database will give PK constraint violation error when trying to insert record with existing PK.
-                    //So add company only if it doesnt exist, check existence using symbol (PK)
-                    
-                    //studentbodyfromDB.CreatedOn = DateTime.Now;
-                    //studentbodyfromDB.latestadmissionsadmission_rateoverall = studentbody.latestadmissionsadmission_rateoverall;
-                    //dbContext.Entry(studentbodyfromDB).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                                        
-                    if (dbContext.StudentBody.Where(c => c.id.Equals(studentbody.id)).Count() == 0)
-                    {
-                        dbContext.StudentBody.Add(studentbody);                        
-                    }                   
-
-                    collegescorecarddata.StudentBody = studentbody;
-                }
-
-                foreach (CostAidEarnings costaidearnings in costaidearningsdata.results)
-                {
-                    //Database will give PK constraint violation error when trying to insert record with existing PK.
-                    //So add company only if it doesnt exist, check existence using symbol (PK)
-                                        
-                    if (dbContext.CostAidEarnings.Where(c => c.id.Equals(costaidearnings.id)).Count() == 0)
-                    {
-                        dbContext.CostAidEarnings.Add(costaidearnings);
-                    }
-                    
-                    collegescorecarddata.CostAidEarnings = costaidearnings;
-                }
-
-                dbContext.SaveChanges();
-             */                   
+                
                 return View(collegescorecarddata);
             }
             // End: User accessing the CollegeScorecard from Collesgeslist page
@@ -193,7 +93,7 @@ namespace CollegeScorecard.Controllers
         }
 
         /****
-         * Returns the Collges List from API.
+         * Returns the Colleges List from API.
          ****/
         public Schools GetSchoolsDatafromAPI()
         {
@@ -204,7 +104,7 @@ namespace CollegeScorecard.Controllers
             {
                 //Database will give PK constraint violation error when trying to insert record with existing PK.
                 //So add School only if it doesnt exist, check existence using symbol (PK)
-                //if ( (dbContext.Schools.Where(c => c.id.Equals(school.id)).Count() == 0) || (DateTime.Now.Date - Convert.ToDateTime(dbContext.Schools.Where(c => c.id.Equals(school.id))?.Select(c => c.CreatedOn.Date))).Days > 30 )
+                
                 if (dbContext.Schools.Where(c => c.id.Equals(school.id)).Count() == 0)
                 {
                     dbContext.Schools.Add(school);
@@ -240,12 +140,8 @@ namespace CollegeScorecard.Controllers
                 {
                     schoolslist.Add(school);
                 }                
-            }
+            }          
             
-            //collegescorecarddata.SchoolsList = schoolslist;
-            //collegescorecarddata.StudentBody = studentbodyfromDB;
-            //collegescorecarddata.CostAidEarnings = costaidearningsfromDB;
-            //return collegescorecarddata;
 
             //check if the studentbodyfromDB or costaidearningsfromDB is null (no data available in database), then call the API
 
@@ -373,55 +269,7 @@ namespace CollegeScorecard.Controllers
                     collegescorecarddata.StudentBody = studentbodyfromDB;
                     collegescorecarddata.CostAidEarnings = costaidearningsfromDB;
                 }                                
-            }
-
-            /*
-            APIHandler webHandler = new APIHandler();
-            studentbodyandcostdata = webHandler.GetStudentBodyandCostDataAPI(id);
-            var settings = new JsonSerializerSettings
-            {
-                NullValueHandling = NullValueHandling.Ignore,
-                MissingMemberHandling = MissingMemberHandling.Ignore
-            };
-
-            if (!studentbodyandcostdata.Equals(""))
-            {
-                // JsonConvert is part of the NewtonSoft.Json Nuget package
-                studentbodydata = JsonConvert.DeserializeObject<StudentBodyData>(studentbodyandcostdata, settings);
-                costaidearningsdata = JsonConvert.DeserializeObject<CostAidEarningsData>(studentbodyandcostdata, settings);
-            }
-
-            foreach (StudentBody studentbody in studentbodydata.results)
-            {
-                //Database will give PK constraint violation error when trying to insert record with existing PK.
-                //So add company only if it doesnt exist, check existence using symbol (PK)
-
-                //studentbodyfromDB.CreatedOn = DateTime.Now;
-                //studentbodyfromDB.latestadmissionsadmission_rateoverall = studentbody.latestadmissionsadmission_rateoverall;
-                //dbContext.Entry(studentbodyfromDB).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-
-                if (dbContext.StudentBody.Where(c => c.id.Equals(studentbody.id)).Count() == 0)
-                {
-                    dbContext.StudentBody.Add(studentbody);
-                }
-                collegescorecarddata.StudentBody = studentbody;
-            }
-
-            foreach (CostAidEarnings costaidearnings in costaidearningsdata.results)
-            {
-                //Database will give PK constraint violation error when trying to insert record with existing PK.
-                //So add company only if it doesnt exist, check existence using symbol (PK)
-
-                if (dbContext.CostAidEarnings.Where(c => c.id.Equals(costaidearnings.id)).Count() == 0)
-                {
-                    dbContext.CostAidEarnings.Add(costaidearnings);
-                }
-
-                collegescorecarddata.CostAidEarnings = costaidearnings;
-            }
-
-            dbContext.SaveChanges();
-            */
+            }                       
             return collegescorecarddata;
         }        
 
