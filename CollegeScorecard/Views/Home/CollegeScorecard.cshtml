@@ -7,6 +7,8 @@
 <h1>College Scorecard</h1>
 <hr />
 
+<h3>Select a college from the below list</h3>
+
 <form asp-controller="Home" asp-action="CollegeScorecard" method="get">
 
     <select name="id" onchange="this.form.submit()">
@@ -15,25 +17,338 @@
 
         @foreach (var school in Model.SchoolsList)
         {
-            <option value=@school.id>@school.schoolname</option>
+            <option value=@school.id selected="@(school.id == ViewBag.collegeselected)">@school.schoolname</option>
         }
-        
+
     </select>
 </form>
 
-@if (Model.StudentBody != null && Model.CostAidEarnings != null)
+@if (Model.SchoolsList != null && Model.StudentBody != null && Model.CostAidEarnings != null)
 {
-    <div>
-        <h2>
-            Undergraduate Students:
-            @Html.DisplayFor(modelItem => Model.StudentBody.lateststudentsize)
-        </h2>
-        <div>
-            <h5>
-                Net price:
-                @Html.DisplayFor(modelItem => Model.CostAidEarnings.latestcostavg_net_pricepublic)
-            </h5>
-        </div>
+    @foreach (var school in Model.SchoolsList)
+    {
+        @if (school.id == ViewBag.collegeselected)
+        {            
+                <h1>@school.schoolname</h1>
+                <h2>
+                    @school.schoolcity, @school.schoolstate, @school.schoolzip
+                </h2>
+                <h2>
+                    <a href="http://@school.schoolschool_url" target="_blank">
+                        @school.schoolschool_url
+                    </a>
+                </h2>          
 
-    </div>
-}
+                <table>
+                    <tr>
+                        <td>
+                            <u>About the Institution</u>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            College Ownership:
+                        </td>
+                        <td>
+                            @if (school.schoolownership == 1)
+                            {
+                                <text>Public</text>
+                            }
+                            else if (school.schoolownership == 2)
+                            {
+                                <text>Private nonprofit</text>
+                            }
+                            else if (school.schoolownership == 3)
+                            {
+                                <text>Private for-profit</text>
+                            }
+                            else
+                            {
+                                <text>Not Available</text>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Accrediting Agency:
+                        </td>
+                        <td>
+                            @school.schoolaccreditor
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Number of Branches:
+                        </td>
+                        <td>
+                            @school.schoolbranches
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Main Campus:
+                        </td>
+                        <td>
+                            @if (school.schoolmain_campus == 1)
+                            {
+                                <text>Yes</text>
+                            }
+                            else
+                            {
+                                <text>No</text>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Highest Degree Awarded:
+                        </td>
+                        <td>
+                            @if (school.schooldegrees_awardedhighest == 4)
+                            {
+                                <text>Graduate degree</text>
+                            }
+                            else if (school.schooldegrees_awardedhighest == 3)
+                            {
+                                <text>Bachelor's degree</text>
+                            }
+                            else if (school.schooldegrees_awardedhighest == 2)
+                            {
+                                <text>Associate degree</text>
+                            }
+                            else if (school.schooldegrees_awardedhighest == 1)
+                            {
+                                <text>Certificate degree</text>
+                            }
+                            else
+                            {
+                                <text>Non-degree-granting</text>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Online Only:
+                        </td>
+                        <td>
+                            @if (school.schoolonline_only == 1)
+                            {
+                                <text>Yes</text>
+                            }
+                            else
+                            {
+                                <text>No</text>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            College Net Price Calculator:
+                        </td>
+                        <td>
+                            <a href="http://@school.schoolprice_calculator_url" target="_blank">
+                                @school.schoolprice_calculator_url
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+
+          }
+      }
+                <table>
+                    <tr>
+                        <td>
+                            <u>Student Count - Chart</u>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <canvas id="doughnutChart" height="300" width="400"></canvas>
+                        </td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td>
+                            <u>Student Body Information</u>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Number of Undergraduate Students:
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.StudentBody.lateststudentsize)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Number of Graduate Students:
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.StudentBody.lateststudentgrad_students)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Graduation Rate:
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.StudentBody.latestcompletioncompletion_rate_4yr_150nt)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Admission Rate:
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.StudentBody.latestadmissionsadmission_rateoverall)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Percent of Part-time Students:
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.StudentBody.lateststudentpart_time_share)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Percent of Female Students:
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.StudentBody.lateststudentdemographicsfemale_share)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Students Who Return After Their First Year:
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.StudentBody.lateststudentretention_ratefour_yearfull_time)
+                        </td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td>
+                            <u>Annual Cost Details - Chart</u>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <canvas id="barChart" height="300" width="400"></canvas>
+                        </td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td>
+                            <u>Costs and Financial Aid Information</u>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Average Annual Cost:
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.CostAidEarnings.latestcostavg_net_pricepublic)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Tuition Cost In-State:
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.CostAidEarnings.latestcosttuitionin_state)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Tuition Cost Out-of-State:
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.CostAidEarnings.latestcosttuitionout_of_state)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Salary After Completing:
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.CostAidEarnings.latestearnings10_yrs_after_entrymedian)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Students Receiving Federal Loans:
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.CostAidEarnings.latestaidfederal_loan_rate)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Students who received federal Pell grant:
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.CostAidEarnings.latestaidpell_grant_rate)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Median Total Debt After Graduation:
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.CostAidEarnings.latestaidmedian_debtcompletersoverall)
+                        </td>
+                    </tr>
+
+                </table>
+
+
+                <script>
+    new Chart(document.getElementById("barChart"), {
+      type: 'bar',
+      data: {
+        labels: ["Average Annual Cost", "Tuition Cost In-State", "Tuition Cost Out-of-State"],
+        datasets: [
+          {
+            label: "Cost (in dollars)",
+            backgroundColor: ["#3e95cd", "#c45850", "#3cba9f"],
+            data: [@Model.CostAidEarnings.latestcostavg_net_pricepublic, @Model.CostAidEarnings.latestcosttuitionin_state, @Model.CostAidEarnings.latestcosttuitionout_of_state]
+          }
+        ]
+      },
+      options: {
+        legend: { display: false },
+        title: {
+          display: true,
+          text: 'Costs'
+        }
+      }
+    });
+
+    new Chart(document.getElementById("doughnutChart"), {
+    type: 'doughnut',
+    data: {
+      labels: ["Undergraduate Students", "Graduate Students"],
+      datasets: [
+        {
+          label: "Student Count",
+          backgroundColor: ["#3e95cd", "#c45850"],
+          data: [@Model.StudentBody.lateststudentsize, @Model.StudentBody.lateststudentgrad_students]
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Student Count'
+      }
+    }
+});
+                </script>
+
+                }

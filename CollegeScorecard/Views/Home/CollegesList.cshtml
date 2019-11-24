@@ -4,112 +4,115 @@
         ViewData["Title"] = "Colleges List";
     }
 
-    <h1>List of Colleges</h1>
+    <h1>List of Public Colleges - Florida</h1>    
     <hr />
 
     <table class="table">
         <thead>
             <tr>
                 <th>
-                    School ID
+                    <u>School ID</u>
                 </th>
                 <th>
-                    School Name
+                    <u>School Name</u>
                 </th>
                 <th>
-                    City
+                    <u>City</u>
                 </th>
                 <th>
-                    State
+                    <u>State</u>
                 </th>
                 <th>
-                    Website URL
+                    <u>Website URL</u>
                 </th>
                 <th>
-                    Highest Degree Awarded
+                    <u>Highest Degree Awarded</u>
                 </th>
                 <th>
-                    Main Campus
+                    <u>Main Campus</u>
                 </th>
                 <th>
-                    Branches
+                    <u>Branches</u>
                 </th>
                 <th>
-                    Online Only
+                    <u>Online Only</u>
                 </th>
             </tr>
         </thead>
 
-        <tbody>
+        @if (Model.results != null)
+        {
+            <tbody>
 
-            @foreach (var item in Model.results)
-            {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.id)
-                </td>
-                
-                <td>                    
-                    <a href='@Url.Action("CollegeScorecard","Home")?id=@item.id'>@item.schoolname</a>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.schoolcity)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.schoolstate)
-                </td>
-                <td>
-                    <a href="http://@item.schoolschool_url" target="_blank">
-                        @Html.DisplayFor(modelItem => item.schoolschool_url)
-                    </a>
-                </td>
-                <td>
-                    @if (item.schooldegrees_awardedhighest == 4)
-                    {
-                        <text>Graduate degree</text>
-                    }
-                    else if (item.schooldegrees_awardedhighest == 3)
-                    {
-                        <text>Bachelor's degree</text>
-                    }
-                    else if (item.schooldegrees_awardedhighest == 2)
-                    {
-                        <text>Associate degree</text>
-                    }
-                    else if (item.schooldegrees_awardedhighest == 1)
-                    {
-                        <text>Certificate degree</text>
-                    }
-                    else
-                    {
-                        <text>Non-degree-granting</text>
-                    }
-                </td>
-                <td>
-                    @if (item.schoolmain_campus == 1)
-                    {
-                        <text>Yes</text>
-                    }
-                    else
-                    {
-                        <text>No</text>
-                    }
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.schoolbranches)
-                </td>
-                <td>
-                    @if (item.schoolonline_only == 1)
-                    {
-                        <text>Online Only</text>
-                    }
-                    else
-                    {
-                        <text>No</text>
-                    }
-                </td>
-            </tr>
-            }
-            
-        </tbody>
+                @foreach (var item in Model.results)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.id)
+                        </td>
+
+                        <td>
+                            <a href='@Url.Action("CollegeScorecard","Home")?id=@item.id'>@item.schoolname</a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.schoolcity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.schoolstate)
+                        </td>
+                        <td>
+                            <a href="http://@item.schoolschool_url" target="_blank">
+                                @Html.DisplayFor(modelItem => item.schoolschool_url)
+                            </a>
+                        </td>
+                        <td>
+                            @if (item.schooldegrees_awardedhighest == 4)
+                            {
+                                <text>Graduate degree</text>
+                            }
+                            else if (item.schooldegrees_awardedhighest == 3)
+                            {
+                                <text>Bachelor's degree</text>
+                            }
+                            else if (item.schooldegrees_awardedhighest == 2)
+                            {
+                                <text>Associate degree</text>
+                            }
+                            else if (item.schooldegrees_awardedhighest == 1)
+                            {
+                                <text>Certificate degree</text>
+                            }
+                            else
+                            {
+                                <text>Non-degree-granting</text>
+                            }
+                        </td>
+                        <td>
+                            @if (item.schoolmain_campus == 1)
+                            {
+                                <text>Yes</text>
+                            }
+                            else
+                            {
+                                <text>No</text>
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.schoolbranches)
+                        </td>
+                        <td>
+                            @if (item.schoolonline_only == 1)
+                            {
+                                <text>Online Only</text>
+                            }
+                            else
+                            {
+                                <text>No</text>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        }
+
     </table>   

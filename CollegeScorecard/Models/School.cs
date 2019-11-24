@@ -46,7 +46,7 @@ namespace CollegeScorecard.Models
         public string schoolaccreditor { get; set; }
 
         [JsonProperty("school.ownership")]
-        public int schoolownership { get; set; }
+        public int? schoolownership { get; set; }
 
         [JsonProperty("school.school_url")]
         public string schoolschool_url { get; set; }
@@ -55,20 +55,19 @@ namespace CollegeScorecard.Models
         public string schoolprice_calculator_url { get; set; }
 
         [JsonProperty("school.main_campus")]
-        public int schoolmain_campus { get; set; }
+        public int? schoolmain_campus { get; set; }
 
         [JsonProperty("school.branches")]
-        public int schoolbranches { get; set; }
+        public int? schoolbranches { get; set; }
 
         [JsonProperty("school.degrees_awarded.highest")]
-        public int schooldegrees_awardedhighest { get; set; }
+        public int? schooldegrees_awardedhighest { get; set; }
 
         [JsonProperty("school.online_only")]
-        public int schoolonline_only { get; set; }  
+        public int? schoolonline_only { get; set; }  
         
         public DateTime CreatedOn { get; set; } = DateTime.Now;
-        //public StudentBody studentbody;
-        //public CostAidEarnings costaidearnings;
+        
 
     }
 

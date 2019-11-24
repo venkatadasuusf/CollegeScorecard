@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - College Scorecard</title>
     <link rel="stylesheet" href="~/css/site.css" />
     <script type="text/javascript" src="~/js/site.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 <body>
     <nav>
@@ -20,7 +21,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>ISDS, Muma College of Business, University of South Florida</p>
+            <p>&copy; 2019 CollegeScorecard - Powered by <a href="https://collegescorecard.ed.gov/data/" target="_blank">College Scorecard Data</a></p>
         </footer>
     </div>
     @RenderSection("Scripts", required: false)

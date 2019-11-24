@@ -29,7 +29,7 @@ namespace CollegeScorecard.APIManager
         /// Method to receive data from API end point as a collection of objects
         /// JsonConvert parses the JSON string into classes
         
-        public Schools GetSchoolsData()
+        public Schools GetSchoolsDataAPI()
         {
             string COLLEGE_SCORECARD_API_PATH = BASE_URL + "&school.state=FL&school.ownership=1&school.degrees_awarded.predominant=3&_fields=id,school.name,school.city,school.state,school.zip,school.accreditor,school.school_url,school.price_calculator_url,school.main_campus,school.branches,school.degrees_awarded.highest,school.ownership,school.online_only,latest.student.size,latest.student.grad_students,latest.student.part_time_share,latest.student.demographics.female_share,latest.student.retention_rate.four_year.full_time,latest.admissions.admission_rate.overall,latest.completion.completion_rate_4yr_150nt,latest.earnings.10_yrs_after_entry.median,latest.cost.avg_net_price.public,latest.cost.tuition.in_state,latest.cost.tuition.out_of_state,latest.aid.pell_grant_rate,latest.aid.federal_loan_rate,latest.aid.median_debt.completers.overall&_per_page=100";
             string SchoolsData = "";           
@@ -70,7 +70,7 @@ namespace CollegeScorecard.APIManager
             return schools;
         }
 
-        public string GetStudentBodyandCostData(int? id)
+        public string GetStudentBodyandCostDataAPI(int? id)
         {
             string COLLEGE_SCORECARD_API_PATH = BASE_URL + "&id=" + id.ToString() + "&_fields=id,school.name,school.city,school.state,school.zip,school.accreditor,school.school_url,school.price_calculator_url,school.main_campus,school.branches,school.degrees_awarded.highest,school.ownership,school.online_only,latest.student.size,latest.student.grad_students,latest.student.part_time_share,latest.student.demographics.female_share,latest.student.retention_rate.four_year.full_time,latest.admissions.admission_rate.overall,latest.completion.completion_rate_4yr_150nt,latest.earnings.10_yrs_after_entry.median,latest.cost.avg_net_price.public,latest.cost.tuition.in_state,latest.cost.tuition.out_of_state,latest.aid.pell_grant_rate,latest.aid.federal_loan_rate,latest.aid.median_debt.completers.overall&_per_page=100";
                         

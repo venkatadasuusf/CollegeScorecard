@@ -18,34 +18,44 @@ namespace CollegeScorecard.Models
 
     public class CostAidEarnings
     {
+        //Database generated Primary key
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column(Order = 1, TypeName = "integer")]
         public int financialsid { get; set; }
 
         [JsonProperty("latest.cost.tuition.in_state")]
-        public int latestcosttuitionin_state { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C0}")]
+        public int? latestcosttuitionin_state { get; set; }
 
         [JsonProperty("latest.earnings.10_yrs_after_entry.median")]
-        public int latestearnings10_yrs_after_entrymedian { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C0}")]
+        public int? latestearnings10_yrs_after_entrymedian { get; set; }
 
         [JsonProperty("latest.cost.tuition.out_of_state")]
-        public int latestcosttuitionout_of_state { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C0}")]
+        public int? latestcosttuitionout_of_state { get; set; }
 
         [JsonProperty("latest.aid.federal_loan_rate")]
-        public float latestaidfederal_loan_rate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:P0}")]
+        public float? latestaidfederal_loan_rate { get; set; }
 
         [JsonProperty("latest.cost.avg_net_price.public")]
-        public int latestcostavg_net_pricepublic { get; set; }
-
+        [DisplayFormat(DataFormatString = "{0:C0}")]
+        public int? latestcostavg_net_pricepublic { get; set; }
+        
         [JsonProperty("latest.aid.median_debt.completers.overall")]
-        public float latestaidmedian_debtcompletersoverall { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C0}")]
+        public float? latestaidmedian_debtcompletersoverall { get; set; }
 
         [JsonProperty("latest.aid.pell_grant_rate")]
-        public float latestaidpell_grant_rate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:P0}")]
+        public float? latestaidpell_grant_rate { get; set; }
+
         public string datayear { get; set; } = "Latest";
         public DateTime CreatedOn { get; set; } = DateTime.Now;
 
+        //ID from Schools table is the Foreign key
         [ForeignKey("School")]
         public int id { get; set; }
         public virtual School School { get; set; }       
