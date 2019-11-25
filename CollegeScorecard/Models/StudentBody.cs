@@ -6,6 +6,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
+//This model is a databse entity StudentBody. This gets the data from API and stores in DB
+
 namespace CollegeScorecard.Models
 {
     public class StudentBodyData

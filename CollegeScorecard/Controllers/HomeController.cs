@@ -20,24 +20,28 @@ namespace CollegeScorecard.Controllers
         public HomeController(CollegeScorecardDbContext context)
         {
             dbContext = context;
-        }          
+        }
 
+        // View for Home Page (Index View)
         public IActionResult Index()
         {
             return View();
         }
 
+        // View for About Us page (AboutUs)
         public IActionResult AboutUs()
         {
             return View();
         }
 
+        // Controller Method for CollegesList page, to make an API call to retrieve the list of colleges
         public IActionResult CollegesList()
         {
             Schools schoolsdata = GetSchoolsDatafromAPI();
             return View(schoolsdata);
         }
 
+        // Controller Method for CollegeScorecard page, to make an API call to retrieve details of the selected college
         public IActionResult CollegeScorecard(int? id)
         {
             CollegeScorecardViewModel collegescorecarddata = new CollegeScorecardViewModel();
@@ -140,8 +144,7 @@ namespace CollegeScorecard.Controllers
                 {
                     schoolslist.Add(school);
                 }                
-            }          
-            
+            }
 
             //check if the studentbodyfromDB or costaidearningsfromDB is null (no data available in database), then call the API
 
@@ -190,6 +193,8 @@ namespace CollegeScorecard.Controllers
                 collegescorecarddata.SchoolsList = schoolslist;
             }
 
+            //check if the data in the DB is older than 30 days?, then call the API
+
             else if (studentbodyfromDB != null && costaidearningsfromDB != null)
             {
                 // Checking the last saved data time for studentbody and costaidrearnings records
@@ -221,6 +226,8 @@ namespace CollegeScorecard.Controllers
                         {
                             dbContext.StudentBody.Add(studentbody);
                         }
+                        
+                        // Update the existing DB record with the latest data from API
                         else
                         {
                             studentbodyfromDB.CreatedOn = DateTime.Now;
@@ -245,6 +252,8 @@ namespace CollegeScorecard.Controllers
                         {
                             dbContext.CostAidEarnings.Add(costaidearnings);
                         }
+
+                        // Update the existing DB record with the latest data from API
                         else
                         {
                             costaidearningsfromDB.CreatedOn = DateTime.Now;

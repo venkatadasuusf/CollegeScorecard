@@ -6,6 +6,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
+//This Model is used for View purpose. The data on CollegeScorecard page is displayed from this model.
+
 namespace CollegeScorecard.Models
 {
     public class CollegeScorecardViewModel

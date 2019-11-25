@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using CollegeScorecard.Models;
 
+//This class has the Database context and the 3 DB tables that will be created
+
 namespace CollegeScorecard.DatabaseAccess
 {
 
